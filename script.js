@@ -1,32 +1,55 @@
-function calculateAndSave() {
-    // Получаем значения из полей ввода
+const userId = 123; // Замените на реальный ID пользователя (можно получить из Telegram)
+
+async function calculateAndSave() {
     const initialHotWater = parseFloat(document.getElementById('initialHotWater').value);
     const currentHotWater = parseFloat(document.getElementById('currentHotWater').value);
     const initialColdWater = parseFloat(document.getElementById('initialColdWater').value);
     const currentColdWater = parseFloat(document.getElementById('currentColdWater').value);
 
-    // Рассчитываем расход
     const hotWaterUsage = currentHotWater - initialHotWater;
     const coldWaterUsage = currentColdWater - initialColdWater;
 
-    // Отображаем результат
     document.getElementById('hotWaterUsage').textContent = `Расход ГВС: ${hotWaterUsage.toFixed(2)}`;
     document.getElementById('coldWaterUsage').textContent = `Расход ХВС: ${coldWaterUsage.toFixed(2)}`;
 
-    // Сохраняем текущие показания как начальные для следующего использования
-    localStorage.setItem('initialHotWater', currentHotWater);
-    localStorage.setItem('initialColdWater', currentColdWater);
+    // Отправка данных на сервер
+    try {
+        const response = await fetch('/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId,
+                initialHotWater,
+                currentHotWater,
+                initialColdWater,
+                currentColdWater,
+            }),
+        });
+        const result = await response.json();
+        if (result.success) {
+            alert('Данные успешно сохранены на сервере!');
+        } else {
+            alert('Ошибка при сохранении данных.');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+    }
 }
 
-// Загрузка сохраненных данных при открытии Web App
-window.onload = function () {
-    const savedInitialHotWater = localStorage.getItem('initialHotWater');
-    const savedInitialColdWater = localStorage.getItem('initialColdWater');
+// Загрузка последних показаний при открытии Web App
+async function loadLastReadings() {
+    try {
+        const response = await fetch(`/last?userId=${userId}`);
+        const result = await response.json();
+        if (result.success && result.readings) {
+            document.getElementById('initialHotWater').value = result.readings.currentHotWater;
+            document.getElementById('initialColdWater').value = result.readings.currentColdWater;
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+    }
+}
 
-    if (savedInitialHotWater) {
-        document.getElementById('initialHotWater').value = savedInitialHotWater;
-    }
-    if (savedInitialColdWater) {
-        document.getElementById('initialColdWater').value = savedInitialColdWater;
-    }
-};
+window.onload = loadLastReadings;
