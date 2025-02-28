@@ -1,4 +1,4 @@
-const userId = 123; // Замените на реальный ID пользователя (можно получить из Telegram)
+const chatId = msg.chat.id; // Получаем chatId из сообщения пользователя
 
 async function calculateAndSave() {
     const initialHotWater = parseFloat(document.getElementById('initialHotWater').value);
