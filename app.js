@@ -7,6 +7,12 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
     const initialHVS = parseFloat(document.getElementById('initialHVS').value);
     const currentHVS = parseFloat(document.getElementById('currentHVS').value);
 
+    // Проверка на пустые значения
+    if (isNaN(initialGVS) || isNaN(currentGVS) || isNaN(initialHVS) || isNaN(currentHVS)) {
+        alert('Пожалуйста, заполните все поля корректно.');
+        return;
+    }
+
     // Рассчитываем расход
     const consumptionGVS = currentGVS - initialGVS;
     const consumptionHVS = currentHVS - initialHVS;
@@ -21,7 +27,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 
     try {
         // Отправляем данные на сервер
-        const response = await fetch('https://ваш-сервер:3000/saveReadings', {
+        const response = await fetch('http://ваш-сервер:3000/saveReadings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,7 +53,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
     try {
-        const response = await fetch('https://ваш-сервер:3000/getReadings');
+        const response = await fetch('http://ваш-сервер:3000/getReadings');
         if (!response.ok) {
             throw new Error('Ошибка при загрузке данных');
         }
