@@ -1,27 +1,16 @@
 const serverUrl = 'http://localhost:3000'; // Локальный сервер
 
-// Получаем текущий URL
-const currentUrl = window.location.href;
+// Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
+const urlParams = new URLSearchParams(window.location.search);
+let chatId = urlParams.get('chatId');
 
-// Проверяем, содержит ли URL параметр "chatId"
-if (currentUrl.includes('chatId=')) {
-    // Извлекаем chatId из URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const chatId = urlParams.get('chatId');
-
-    // Проверяем, что chatId не пустой
-    if (chatId) {
-        console.log('chatId из URL:', chatId);
-        // Используем chatId для дальнейшей работы
-    } else {
-        console.warn('chatId не указан в URL. Используется значение по умолчанию: defaultChatId');
-        const chatId = 'defaultChatId'; // Значение по умолчанию
-    }
-} else {
-    console.warn('Параметр chatId отсутствует в URL. Используется значение по умолчанию: defaultChatId');
-    const chatId = 'defaultChatId'; // Значение по умолчанию
+// Если chatId не передан, используем значение по умолчанию
+if (!chatId) {
+    chatId = 'defaultChatId'; // Значение по умолчанию
+    console.warn('chatId не указан в URL. Используется значение по умолчанию:', chatId);
 }
 
+// Остальной код...
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
