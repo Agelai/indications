@@ -4,6 +4,12 @@ const serverUrl = 'http://localhost:3000'; // Локальный сервер
 const urlParams = new URLSearchParams(window.location.search);
 const chatId = urlParams.get('chatId');
 
+// Проверяем, что chatId передан в URL
+if (!chatId) {
+    alert('Ошибка: chatId не указан в URL.');
+    throw new Error('chatId не указан в URL.');
+}
+
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
