@@ -1,3 +1,5 @@
+const serverUrl = 'https://indications.vercel.app'; // Замените на ваш Vercel URL
+
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -27,7 +29,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 
     try {
         // Отправляем данные на сервер
-        const response = await fetch('http://94.245.149.41:3000/saveReadings', {
+        const response = await fetch(`${serverUrl}/saveReadings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +55,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
     try {
-        const response = await fetch('http://94.245.149.41:3000/getReadings');
+        const response = await fetch(`${serverUrl}/getReadings`);
         if (!response.ok) {
             throw new Error('Ошибка при загрузке данных');
         }
