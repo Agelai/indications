@@ -27,7 +27,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 
     try {
         // Отправляем данные на сервер
-        const response = await fetch('http://ваш-сервер:3000/saveReadings', {
+        const response = await fetch('http://localhost:3000/saveReadings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
     try {
-        const response = await fetch('http://ваш-сервер:3000/getReadings');
+        const response = await fetch('http://localhost:3000/getReadings');
         if (!response.ok) {
             throw new Error('Ошибка при загрузке данных');
         }
