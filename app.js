@@ -1,5 +1,3 @@
-javascript
-Copy
 const serverUrl = 'http://localhost:3000'; // Локальный сервер
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
