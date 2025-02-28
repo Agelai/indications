@@ -22,13 +22,6 @@ if (currentUrl.includes('chatId=')) {
     const chatId = 'defaultChatId'; // Значение по умолчанию
 }
 
-if (chatId) {
-    console.log('Используем chatId:', chatId);
-    // Ваш код для работы с chatId
-} else {
-    console.warn('Используем значение по умолчанию: defaultChatId');
-    // Ваш код для работы с defaultChatId
-}
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
