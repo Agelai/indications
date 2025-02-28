@@ -1,7 +1,11 @@
+// Получаем chatId из URL (например, https://your-web-app.com?chatId=12345)
+const urlParams = new URLSearchParams(window.location.search);
+const chatId = urlParams.get('chatId');
+
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-// Получаем значения из полей ввода
+    // Получаем значения из полей ввода
     const initialGVS = parseFloat(document.getElementById('initialGVS').value);
     const currentGVS = parseFloat(document.getElementById('currentGVS').value);
     const initialHVS = parseFloat(document.getElementById('initialHVS').value);
@@ -33,8 +37,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
         consumptionGVS,
         consumptionHVS
     };
-
-
+    
     try {
         // Отправляем данные на сервер
         const response = await fetch('http://localhost:3000/saveReadings', {
