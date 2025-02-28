@@ -70,12 +70,11 @@ window.onload = async function() {
 
         const data = await response.json();
 
-        // Заполняем поля ввода сохраненными данными
-        if (data.initialGVS) {
-            document.getElementById('initialGVS').value = data.initialGVS;
-        }
-        if (data.initialHVS) {
-            document.getElementById('initialHVS').value = data.initialHVS;
+        // Если есть сохраненные данные, заполняем начальные показания
+        if (data.length > 0) {
+            const lastReading = data[data.length - 1]; // Берем последние показания
+            document.getElementById('initialGVS').value = lastReading.currentGVS;
+            document.getElementById('initialHVS').value = lastReading.currentHVS;
         }
     } catch (error) {
         console.error('Ошибка:', error);
