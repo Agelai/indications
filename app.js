@@ -6,7 +6,7 @@ let chatId = urlParams.get('chatId');
 
 // Если chatId не передан, используем значение по умолчанию (для тестирования)
 if (!chatId) {
-    // chatId = 'defaultChatId'; // Замените на любое значение для тестирования
+    chatId = 'defaultChatId'; // Замените на любое значение для тестирования
     console.warn('chatId не указан в URL. Используется значение по умолчанию:', chatId);
 }
 
