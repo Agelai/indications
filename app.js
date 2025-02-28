@@ -2,12 +2,12 @@ const serverUrl = 'http://localhost:3000'; // Локальный сервер
 
 // Получаем chatId из URL (например, http://localhost:3000?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
-const chatId = urlParams.get('chatId');
+let chatId = urlParams.get('chatId');
 
-// Проверяем, что chatId передан в URL
+// Если chatId не передан, используем значение по умолчанию (для тестирования)
 if (!chatId) {
-    alert('Ошибка: chatId не указан в URL.');
-    throw new Error('chatId не указан в URL.');
+    // chatId = 'defaultChatId'; // Замените на любое значение для тестирования
+    console.warn('chatId не указан в URL. Используется значение по умолчанию:', chatId);
 }
 
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
