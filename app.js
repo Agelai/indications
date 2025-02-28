@@ -1,7 +1,7 @@
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    // Получаем значения из полей ввода
+  // Получаем значения из полей ввода
     const initialGVS = parseFloat(document.getElementById('initialGVS').value);
     const currentGVS = parseFloat(document.getElementById('currentGVS').value);
     const initialHVS = parseFloat(document.getElementById('initialHVS').value);
@@ -10,6 +10,12 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
     // Проверка на пустые значения
     if (isNaN(initialGVS) || isNaN(currentGVS) || isNaN(initialHVS) || isNaN(currentHVS)) {
         alert('Пожалуйста, заполните все поля корректно.');
+        return;
+    }
+
+    // Проверка на то, что текущие показания не меньше предыдущих
+    if (currentGVS < initialGVS || currentHVS < initialHVS) {
+        alert('Текущие показания не могут быть меньше предыдущих!');
         return;
     }
 
