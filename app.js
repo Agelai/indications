@@ -1,17 +1,10 @@
 document.getElementById('readingsForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
-
     const initialGVS = parseFloat(document.getElementById('initialGVS').value);
     const currentGVS = parseFloat(document.getElementById('currentGVS').value);
     const initialHVS = parseFloat(document.getElementById('initialHVS').value);
     const currentHVS = parseFloat(document.getElementById('currentHVS').value);
-    
 
     const consumptionGVS = currentGVS - initialGVS;
     const consumptionHVS = currentHVS - initialHVS;
@@ -23,7 +16,7 @@ document.getElementById('readingsForm').addEventListener('submit', function(even
         consumptionHVS
     };
 
-    fetch('/saveReadings', {
+    fetch('https://ваш-сервер:3000/saveReadings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -44,7 +37,7 @@ document.getElementById('readingsForm').addEventListener('submit', function(even
 
 // Загрузка сохраненных данных при открытии Web App
 window.onload = function() {
-    fetch('/getReadings')
+    fetch('https://ваш-сервер:3000/getReadings')
         .then(response => response.json())
         .then(data => {
             if (data.initialGVS) {
