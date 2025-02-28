@@ -4,38 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Показания</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Ввод показаний</h1>
-        <form id="meterReadingsForm">
-            <div class="input-group">
-                <label for="initialHotWater">Начальные показания ГВС:</label>
-                <input type="number" id="initialHotWater" name="initialHotWater" required>
-            </div>
-            <div class="input-group">
-                <label for="currentHotWater">Текущие показания ГВС:</label>
-                <input type="number" id="currentHotWater" name="currentHotWater" required>
-            </div>
-            <div class="input-group">
-                <label for="initialColdWater">Начальные показания ХВС:</label>
-                <input type="number" id="initialColdWater" name="initialColdWater" required>
-            </div>
-            <div class="input-group">
-                <label for="currentColdWater">Текущие показания ХВС:</label>
-                <input type="number" id="currentColdWater" name="currentColdWater" required>
-            </div>
-            <button type="button" onclick="calculateAndSave()">Рассчитать и сохранить расход</button>
+        <h1>Показания</h1>
+        <form id="readingsForm">
+            <label for="initialGVS">Начальные показания ГВС:</label>
+            <input type="number" id="initialGVS" name="initialGVS" required>
+
+            <label for="currentGVS">Текущие показания ГВС:</label>
+            <input type="number" id="currentGVS" name="currentGVS" required>
+
+            <label for="initialHVS">Начальные показания ХВС:</label>
+            <input type="number" id="initialHVS" name="initialHVS" required>
+
+            <label for="currentHVS">Текущие показания ХВС:</label>
+            <input type="number" id="currentHVS" name="currentHVS" required>
+
+            <button type="submit">Рассчитать и сохранить расход</button>
         </form>
-
-        <h2>Расход:</h2>
-        <div class="result">
-            <p id="hotWaterUsage">Расход ГВС: </p>
-            <p id="coldWaterUsage">Расход ХВС: </p>
-        </div>
+        <div id="result"></div>
     </div>
-
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
