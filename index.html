@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Показания</title>
+</head>
+<body>
+    <h1>Введите показания</h1>
+    <form id="meterReadingsForm">
+        <label for="initialHotWater">Начальные показания ГВС:</label>
+        <input type="number" id="initialHotWater" name="initialHotWater" required><br><br>
+        
+        <label for="currentHotWater">Текущие показания ГВС:</label>
+        <input type="number" id="currentHotWater" name="currentHotWater" required><br><br>
+        
+        <label for="initialColdWater">Начальные показания ХВС:</label>
+        <input type="number" id="initialColdWater" name="initialColdWater" required><br><br>
+        
+        <label for="currentColdWater">Текущие показания ХВС:</label>
+        <input type="number" id="currentColdWater" name="currentColdWater" required><br><br>
+        
+        <button type="button" onclick="calculateAndSave()">Рассчитать и сохранить расход</button>
+    </form>
+
+    <h2>Расход:</h2>
+    <p id="hotWaterUsage">Расход ГВС: </p>
+    <p id="coldWaterUsage">Расход ХВС: </p>
+
+    <script>
+        function calculateAndSave() {
+            const initialHotWater = parseFloat(document.getElementById('initialHotWater').value);
+            const currentHotWater = parseFloat(document.getElementById('currentHotWater').value);
+            const initialColdWater = parseFloat(document.getElementById('initialColdWater').value);
+            const currentColdWater = parseFloat(document.getElementById('currentColdWater').value);
+
+            const hotWaterUsage = currentHotWater - initialHotWater;
+            const coldWaterUsage = currentColdWater - initialColdWater;
+
+            document.getElementById('hotWaterUsage').textContent = `Расход ГВС: ${hotWaterUsage}`;
+            document.getElementById('coldWaterUsage').textContent = `Расход ХВС: ${coldWaterUsage}`;
+
+            // Сохранение данных в localStorage
+            localStorage.setItem('initialHotWater', currentHotWater);
+            localStorage.setItem('initialColdWater', currentColdWater);
+
+            // Здесь можно добавить код для отправки данных на сервер или в Telegram бот
+        }
+
+        // Загрузка сохраненных данных при открытии Web App
+        window.onload = function() {
+            const savedInitialHotWater = localStorage.getItem('initialHotWater');
+            const savedInitialColdWater = localStorage.getItem('initialColdWater');
+
+            if (savedInitialHotWater) {
+                document.getElementById('initialHotWater').value = savedInitialHotWater;
+            }
+            if (savedInitialColdWater) {
+                document.getElementById('initialColdWater').value = savedInitialColdWater;
+            }
+        };
+    </script>
+</body>
+</html>
