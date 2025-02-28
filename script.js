@@ -1,4 +1,4 @@
-const chatId = msg.chat.id; // Получаем chatId из сообщения пользователя
+const chatId = msg.chat.id; 
 
 async function calculateAndSave() {
     const initialHotWater = parseFloat(document.getElementById('initialHotWater').value);
