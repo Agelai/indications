@@ -1,3 +1,5 @@
+javascript
+Copy
 const serverUrl = 'http://localhost:3000'; // Локальный сервер
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
@@ -10,7 +12,48 @@ if (!chatId) {
     console.warn('chatId не указан в URL. Используется значение по умолчанию:', chatId);
 }
 
-// Остальной код...
+// Обработчик для кнопки "Архив"
+document.getElementById('archiveButton').addEventListener('click', async function() {
+    try {
+        // Запрашиваем архив данных с сервера
+        const response = await fetch(`${serverUrl}/getReadings/${chatId}`);
+        if (!response.ok) {
+            throw new Error('Ошибка при загрузке архива данных');
+        }
+
+        const data = await response.json();
+
+        // Формируем HTML для вывода архива
+        let archiveHtml = '<h2>Архив показаний</h2>';
+        if (data.length > 0) {
+            data.forEach((reading) => {
+                // Форматируем дату
+                const date = new Date(reading.timestamp).toLocaleString(); // Например: "01.10.2023, 12:00:00"
+
+                archiveHtml += `
+                    <div class="archive-item">
+                        <h3>Дата заполнения: ${date}</h3>
+                        <p>Начальные показания ГВС: ${reading.initialGVS}</p>
+                        <p>Текущие показания ГВС: ${reading.currentGVS}</p>
+                        <p>Расход ГВС: ${reading.consumptionGVS}</p>
+                        <p>Начальные показания ХВС: ${reading.initialHVS}</p>
+                        <p>Текущие показания ХВС: ${reading.currentHVS}</p>
+                        <p>Расход ХВС: ${reading.consumptionHVS}</p>
+                    </div>
+                `;
+            });
+        } else {
+            archiveHtml += '<p>Нет данных для отображения.</p>';
+        }
+
+        // Выводим архив на экран
+        document.getElementById('archiveResult').innerHTML = archiveHtml;
+    } catch (error) {
+        console.error('Ошибка:', error);
+        document.getElementById('archiveResult').innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+    }
+});
+
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
