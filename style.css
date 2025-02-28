@@ -70,3 +70,19 @@ button:hover {
     margin: 5px 0;
     font-size: 14px;
 }
+
+.archive-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.archive-item h3 {
+    margin-top: 0;
+}
+
+#archiveResult {
+    margin-top: 20px;
+}
