@@ -1,4 +1,6 @@
-// Получаем chatId из URL (например, https://your-web-app.com?chatId=12345)
+const serverUrl = 'http://localhost:3000'; // Локальный сервер
+
+// Получаем chatId из URL (например, http://localhost:3000?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
 const chatId = urlParams.get('chatId');
 
@@ -37,10 +39,10 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
         consumptionGVS,
         consumptionHVS
     };
-    
+
     try {
         // Отправляем данные на сервер
-        const response = await fetch('http://localhost:3000/saveReadings', {
+        const response = await fetch(`${serverUrl}/saveReadings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +68,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
     try {
-        const response = await fetch('http://localhost:3000/getReadings');
+        const response = await fetch(`${serverUrl}/getReadings/${chatId}`);
         if (!response.ok) {
             throw new Error('Ошибка при загрузке данных');
         }
