@@ -1,13 +1,7 @@
-const serverUrl = 'http://localhost:3000'; // Замените на ваш Vercel URL
-
-// Получаем chatId из URL (например, https://your-web-app.com?chatId=12345)
-const urlParams = new URLSearchParams(window.location.search);
-const chatId = urlParams.get('chatId');
-
 document.getElementById('readingsForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    // Получаем значения из полей ввода
+// Получаем значения из полей ввода
     const initialGVS = parseFloat(document.getElementById('initialGVS').value);
     const currentGVS = parseFloat(document.getElementById('currentGVS').value);
     const initialHVS = parseFloat(document.getElementById('initialHVS').value);
@@ -40,9 +34,10 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
         consumptionHVS
     };
 
+
     try {
         // Отправляем данные на сервер
-        const response = await fetch(`${serverUrl}/saveReadings`, {
+        const response = await fetch('http://localhost:3000/saveReadings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,18 +63,19 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
     try {
-        const response = await fetch(`${serverUrl}/getReadings/${chatId}`);
+        const response = await fetch('http://localhost:3000/getReadings');
         if (!response.ok) {
             throw new Error('Ошибка при загрузке данных');
         }
 
         const data = await response.json();
 
-        // Если есть сохраненные данные, заполняем начальные показания
-        if (data.length > 0) {
-            const lastReading = data[data.length - 1]; // Берем последние показания
-            document.getElementById('initialGVS').value = lastReading.currentGVS;
-            document.getElementById('initialHVS').value = lastReading.currentHVS;
+        // Заполняем поля ввода сохраненными данными
+        if (data.initialGVS) {
+            document.getElementById('initialGVS').value = data.initialGVS;
+        }
+        if (data.initialHVS) {
+            document.getElementById('initialHVS').value = data.initialHVS;
         }
     } catch (error) {
         console.error('Ошибка:', error);
