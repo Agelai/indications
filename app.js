@@ -1,12 +1,12 @@
 const serverUrl = 'http://localhost:3000'; // Локальный сервер
 
-// Получаем chatId из URL (например, http://localhost:3000?chatId=12345)
+// Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
 let chatId = urlParams.get('chatId');
 
-// Если chatId не передан, используем значение по умолчанию (для тестирования)
+// Если chatId не передан, используем значение по умолчанию
 if (!chatId) {
-    chatId = 'defaultChatId'; // Замените на любое значение для тестирования
+    chatId = 'defaultChatId'; // Значение по умолчанию
     console.warn('chatId не указан в URL. Используется значение по умолчанию:', chatId);
 }
 
