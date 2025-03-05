@@ -98,3 +98,19 @@ button:hover {
     margin-top: 0;
 }
 
+/* Стили для кнопки "Закрыть архив" */
+#closeArchiveButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #f44336; /* Красный цвет */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#closeArchiveButton:hover {
+    background-color: #d32f2f; /* Темно-красный цвет при наведении */
+}
