@@ -28,15 +28,19 @@ document.getElementById('archiveButton').addEventListener('click', async functio
                 // Форматируем дату
                 const date = new Date(reading.timestamp).toLocaleString(); // Например: "01.10.2023, 12:00:00"
 
+                // Форматируем расход с тремя знаками после запятой
+                const consumptionGVS = parseFloat(reading.consumptionGVS).toFixed(3);
+                const consumptionHVS = parseFloat(reading.consumptionHVS).toFixed(3);
+
                 archiveHtml += `
                     <div class="archive-item">
                         <h3>Дата заполнения: ${date}</h3>
                         <p>Начальные показания ГВС: ${reading.initialGVS}</p>
                         <p>Текущие показания ГВС: ${reading.currentGVS}</p>
-                        <p>Расход ГВС: ${reading.consumptionGVS}</p>
+                        <p>Расход ГВС: ${consumptionGVS}</p>
                         <p>Начальные показания ХВС: ${reading.initialHVS}</p>
                         <p>Текущие показания ХВС: ${reading.currentHVS}</p>
-                        <p>Расход ХВС: ${reading.consumptionHVS}</p>
+                        <p>Расход ХВС: ${consumptionHVS}</p>
                     </div>
                 `;
             });
@@ -44,8 +48,16 @@ document.getElementById('archiveButton').addEventListener('click', async functio
             archiveHtml += '<p>Нет данных для отображения.</p>';
         }
 
+        // Добавляем кнопку "Закрыть архив"
+        archiveHtml += '<button id="closeArchiveButton">Закрыть архив</button>';
+
         // Выводим архив на экран
         document.getElementById('archiveResult').innerHTML = archiveHtml;
+
+        // Обработчик для кнопки "Закрыть архив"
+        document.getElementById('closeArchiveButton').addEventListener('click', function() {
+            document.getElementById('archiveResult').innerHTML = ''; // Сворачиваем архив
+        });
     } catch (error) {
         console.error('Ошибка:', error);
         document.getElementById('archiveResult').innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
