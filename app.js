@@ -86,8 +86,8 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
     }
 
     // Рассчитываем расход
-    const consumptionGVS = currentGVS - initialGVS.toFixed(3);
-    const consumptionHVS = currentHVS - initialHVS.toFixed(3);
+    const consumptionGVS = (currentGVS - initialGVS).toFixed(3); // Форматируем с тремя знаками после запятой
+    const consumptionHVS = (currentHVS - initialHVS).toFixed(3); 
 
     // Формируем данные для отправки на сервер
     const data = {
@@ -96,8 +96,8 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
         currentGVS,
         initialHVS,
         currentHVS,
-        consumptionGVS,
-        consumptionHVS
+        consumptionGVS: parseFloat(consumptionGVS),
+        consumptionHVS: parseFloat(consumptionHVS)  
     };
 
     try {
