@@ -1,4 +1,4 @@
-const serverUrl = 'http://localhost:3000'; // Локальный сервер
+const serverUrl = 'https://indications.vercel.app/'; // Локальный сервер http://localhost:3000
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
