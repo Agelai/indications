@@ -9,6 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow-y: auto; /* Общий скролл для страницы */
 }
 
 .container {
@@ -87,4 +88,5 @@ button:hover {
 
 #archiveResult {
     margin-top: 20px;
+overflow-y: auto; /* Скролл внутри архива */
 }
