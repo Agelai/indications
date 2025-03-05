@@ -86,8 +86,8 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
     }
 
     // Рассчитываем расход
-    const consumptionGVS = currentGVS - initialGVS;
-    const consumptionHVS = currentHVS - initialHVS;
+    const consumptionGVS = currentGVS - initialGVS.toFixed(3);
+    const consumptionHVS = currentHVS - initialHVS.toFixed(3);
 
     // Формируем данные для отправки на сервер
     const data = {
