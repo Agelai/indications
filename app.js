@@ -1,4 +1,4 @@
-const serverUrl = 'https://test-bot-tawny-delta.vercel.app'; // Локальный сервер http://localhost:3000
+const serverUrl = 'https://mytestbot.com/lander'; // Локальный сервер http://localhost:3000
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
