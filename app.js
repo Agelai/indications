@@ -1,5 +1,4 @@
 const botToken = '8150508591:AAElvwwCSCMhPa025yldgwuWJ0lXHJxWE50'; // Замените на токен вашего бота
-//const chatId = 'YOUR_CHAT_ID'; // Замените на chatId пользователя или группы
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
@@ -15,15 +14,11 @@ if (!chatId) {
 document.getElementById('archiveButton').addEventListener('click', async function() {
     try {
         // Запрашиваем архив данных у бота
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/getReadings?chatId=${chatId}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: '/getReadings'
-            })
+            }
         });
 
         if (!response.ok) {
@@ -113,15 +108,12 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 
     try {
         // Отправляем данные боту
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/saveReadings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: `Данные: ${JSON.stringify(data)}`
-            })
+            body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -143,15 +135,11 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 window.onload = async function() {
     try {
         // Запрашиваем данные у бота
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/getReadings?chatId=${chatId}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: '/getReadings'
-            })
+            }
         });
 
         if (!response.ok) {
