@@ -1,4 +1,6 @@
-const serverUrl = 'http://localhost:3000'; // Локальный сервер
+const serverUrl = 'https://test-bot-8nm4.onrender.com'; // Локальный сервер https://test-bot-8nm4.onrender.com http://localhost:3000
+
+
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
