@@ -1,4 +1,4 @@
-const botToken = '815'; // Замените на токен вашего бота
+const botToken = '8150508591:AAElvwwCSCMhPa025yldgwuWJ0lXHJxWE50'; // Замените на токен вашего бота
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
