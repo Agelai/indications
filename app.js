@@ -1,4 +1,4 @@
-const serverUrl = 'http://localhost:3000'; // Локальный сервер https://test-bot-8nm4.onrender.com http://localhost:3000
+const serverUrl = 'https://rich-dolls-grin.loca.lt'; // Локальный сервер https://test-bot-8nm4.onrender.com http://localhost:3000
 
 
 
