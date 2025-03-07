@@ -107,29 +107,28 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
     };
 
     try {
-        // Отправляем данные боту
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/saveReadings`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+    // Отправляем данные на сервер (Express.js)
+    const response = await fetch(`https://http://localhost:3000/saveReadings`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Отправляем данные в формате JSON
+    });
 
-        if (!response.ok) {
-            throw new Error('Ошибка при сохранении данных');
-        }
-
-        // Выводим результат на экран
-        document.getElementById('result').innerHTML = `
-            <p>Расход ГВС: ${consumptionGVS}</p>
-            <p>Расход ХВС: ${consumptionHVS}</p>
-        `;
-    } catch (error) {
-        console.error('Ошибка:', error);
-        document.getElementById('result').innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+    if (!response.ok) {
+        throw new Error('Ошибка при сохранении данных');
     }
-});
+
+    // Выводим результат на экран
+    document.getElementById('result').innerHTML = `
+        <p>Расход ГВС: ${consumptionGVS}</p>
+        <p>Расход ХВС: ${consumptionHVS}</p>
+    `;
+} catch (error) {
+    console.error('Ошибка:', error);
+    document.getElementById('result').innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+}
 
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
