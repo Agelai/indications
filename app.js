@@ -108,7 +108,7 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 
     try {
     // Отправляем данные на сервер (Express.js)
-    const response = await fetch(`https://http://localhost:3000/saveReadings`, {
+    const response = await fetch(`http://localhost:3000/saveReadings`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
