@@ -1,4 +1,4 @@
-const serverUrl = 'https://witty-dancers-wash.loca.lt'; // Локальный сервер https://test-bot-8nm4.onrender.com http://localhost:3000
+const serverUrl = 'https://testbot.loca.lt'; // Локальный сервер https://test-bot-8nm4.onrender.com http://localhost:3000
 
 
 
