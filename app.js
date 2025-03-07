@@ -13,8 +13,8 @@ if (!chatId) {
 // Обработчик для кнопки "Архив"
 document.getElementById('archiveButton').addEventListener('click', async function() {
     try {
-        // Запрашиваем архив данных у бота
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/getReadings?chatId=${chatId}`, {
+        // Запрашиваем архив данных у сервера (Express.js)
+        const response = await fetch(`http://localhost:3000/getReadings/${chatId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
