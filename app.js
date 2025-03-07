@@ -1,4 +1,4 @@
-const botToken = '8150508591:AAElvwwCSCMhPa025yldgwuWJ0lXHJxWE50'; // Замените на токен вашего бота
+const serverUrl = 'http://localhost:3000'; // Локальный сервер
 
 // Получаем chatId из URL (например, https://agelai.github.io/indications?chatId=12345)
 const urlParams = new URLSearchParams(window.location.search);
@@ -13,14 +13,8 @@ if (!chatId) {
 // Обработчик для кнопки "Архив"
 document.getElementById('archiveButton').addEventListener('click', async function() {
     try {
-        // Запрашиваем архив данных у сервера (Express.js)
-        const response = await fetch(`http://localhost:3000/getReadings/${chatId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
+        // Запрашиваем архив данных с сервера
+        const response = await fetch(`${serverUrl}/getReadings/${chatId}`);
         if (!response.ok) {
             throw new Error('Ошибка при загрузке архива данных');
         }
@@ -93,54 +87,48 @@ document.getElementById('readingsForm').addEventListener('submit', async functio
 
     // Рассчитываем расход
     const consumptionGVS = (currentGVS - initialGVS).toFixed(3); // Форматируем с тремя знаками после запятой
-    const consumptionHVS = (currentHVS - initialHVS).toFixed(3); 
+    const consumptionHVS = (currentHVS - initialHVS).toFixed(3); // Форматируем с тремя знаками после запятой
 
-    // Формируем данные для отправки боту
+    // Формируем данные для отправки на сервер
     const data = {
         chatId, // Добавляем chatId
         initialGVS,
         currentGVS,
         initialHVS,
         currentHVS,
-        consumptionGVS: parseFloat(consumptionGVS),
-        consumptionHVS: parseFloat(consumptionHVS)  
+        consumptionGVS: parseFloat(consumptionGVS), // Сохраняем как число
+        consumptionHVS: parseFloat(consumptionHVS)  // Сохраняем как число
     };
 
     try {
-    // Отправляем данные на сервер (Express.js)
-    const response = await fetch(`http://localhost:3000/saveReadings`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data) // Отправляем данные в формате JSON
-    });
+        // Отправляем данные на сервер
+        const response = await fetch(`${serverUrl}/saveReadings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
 
-    if (!response.ok) {
-        throw new Error('Ошибка при сохранении данных');
+        if (!response.ok) {
+            throw new Error('Ошибка при сохранении данных');
+        }
+
+        // Выводим результат на экран
+        document.getElementById('result').innerHTML = `
+            <p>Расход ГВС: ${consumptionGVS}</p>
+            <p>Расход ХВС: ${consumptionHVS}</p>
+        `;
+    } catch (error) {
+        console.error('Ошибка:', error);
+        document.getElementById('result').innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
     }
-
-    // Выводим результат на экран
-    document.getElementById('result').innerHTML = `
-        <p>Расход ГВС: ${consumptionGVS}</p>
-        <p>Расход ХВС: ${consumptionHVS}</p>
-    `;
-} catch (error) {
-    console.error('Ошибка:', error);
-    document.getElementById('result').innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
-}
+});
 
 // Загрузка сохраненных данных при открытии Web App
 window.onload = async function() {
     try {
-        // Запрашиваем данные у бота
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/getReadings?chatId=${chatId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
+        const response = await fetch(`${serverUrl}/getReadings/${chatId}`);
         if (!response.ok) {
             throw new Error('Ошибка при загрузке данных');
         }
@@ -156,4 +144,4 @@ window.onload = async function() {
     } catch (error) {
         console.error('Ошибка:', error);
     }
-}});
+};
