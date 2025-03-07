@@ -156,4 +156,4 @@ window.onload = async function() {
     } catch (error) {
         console.error('Ошибка:', error);
     }
-};
+}});
